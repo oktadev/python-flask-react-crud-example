@@ -1,0 +1,19 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+flask = "*"
+pymongo = "*"
+marshmallow = "*"
+ipdb = "*"
+pyjwt = "*"
+python-dotenv = "*"
+flask-cors = "*"
+
+[dev-packages]
+ipdb = "*"
+
+[requires]
+python_version = "3.7"
