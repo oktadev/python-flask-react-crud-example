@@ -4,13 +4,11 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-flask = "*"
-pymongo = "*"
-marshmallow = "*"
-ipdb = "*"
-pyjwt = "*"
-python-dotenv = "*"
-flask-cors = "*"
+marshmallow = "==2.16.3"
+pyjwt = "==1.7.1"
+pymongo = "==3.7.2"
+flask = "==1.0.2"
+flask-cors = "==3.0.7"
 
 [dev-packages]
 ipdb = "*"
