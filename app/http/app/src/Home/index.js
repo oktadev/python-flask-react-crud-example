@@ -49,7 +49,7 @@ class Home extends React.Component {
 
   resetRepos = repos => this.setState({ ...this.state, repos })
 
-  isKudo = repo => this.state.kudos.find(r => r.id == repo.id)
+  isKudo = repo => this.state.kudos.find(r => r.id === repo.id)
   
   onKudo = (repo) => {
     this.updateBackend(repo);

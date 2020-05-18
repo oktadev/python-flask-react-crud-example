@@ -10,9 +10,9 @@ class Main extends Component {
     return (
       <main>
         <Security 
-          issuer={'https://dev-509836.oktapreview.com/oauth2/default'}
-          client_id={'0oagcbm1o6GTTB9Da0h7'}
-          redirect_uri={'http://localhost:3000/implicit/callback'}
+          issuer={'https://dev-537985.okta.com/oauth2/default'}
+          client_id={'0oacjk9u0weh8u7nr4x6'}
+          redirect_uri={'http://localhost:8080/implicit/callback'}
           scope={['openid', 'profile', 'email']}>
           
           <Switch>

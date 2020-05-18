@@ -1,4 +1,4 @@
-from .middlewares import login_required
+from app.http.api.middlewares import login_required
 from flask import Flask, json, g, request
 from app.kudo.service import Service as Kudo
 from app.kudo.schema import GithubRepoSchema
@@ -60,3 +60,7 @@ def delete(repo_id):
 
 def json_response(payload, status=200):
   return (json.dumps(payload), status, {'content-type': 'application/json'})
+
+
+if __name__ == '__main__':
+    app.run(threaded=True, debug=True, port=4433)
