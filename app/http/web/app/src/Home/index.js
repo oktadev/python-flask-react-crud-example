@@ -82,8 +82,7 @@ class Home extends React.Component {
     if (!target.value || target.length < 3) { return }
     if (event.which !== 13) { return }
 
-    githubClient
-      .getJSONRepos(target.value)
+    githubClient(target.value)
       .then((response) => {
         target.blur();
         this.setState({ ...this.state, value: 1 });

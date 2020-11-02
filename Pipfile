@@ -10,6 +10,7 @@ flask = "==1.0.2"
 marshmallow = "==2.16.3"
 pymongo = "==3.7.2"
 flask-cors = "==3.0.7"
+flask-oidc = "==1.4.0"
 
 [requires]
 python_version = "3.8"
