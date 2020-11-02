@@ -10,11 +10,16 @@ If you'd like to simply clone this repo and configure it with your Okta settings
 
 2. Create a new **Web** app and **SPA** app on Okta with the default settings. Put your web app settings in `client_secrets.json`. For the SPA app, put your settings in `app/http/web/app/src/Main/index.js`. 
 
-3. Start the Python backend with:
+3. Start MongoDB with Docker Compose:
+
+       docker-compose up
+       export MONGO_URL=mongodb://mongo_user:mongo_secret@0.0.0.0:27017/
+       
+4. Start the Python backend:
 
        FLASK_APP=$PWD/app/http/api/endpoints.py FLASK_ENV=development pipenv run python -m flask run --port 4433
 
-4. Start the React frontend with:
+5. Start the React frontend:
 
        cd app/http/web/app
        npm i
