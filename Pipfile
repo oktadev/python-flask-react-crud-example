@@ -1,17 +1,16 @@
 [[source]]
+name = "pypi"
 url = "https://pypi.org/simple"
 verify_ssl = true
-name = "pypi"
-
-[packages]
-marshmallow = "==2.16.3"
-pyjwt = "==1.7.1"
-pymongo = "==3.7.2"
-flask = "==1.0.2"
-flask-cors = "==3.0.7"
 
 [dev-packages]
-ipdb = "*"
+
+[packages]
+flask = "==1.0.2"
+marshmallow = "==2.16.3"
+pymongo = "==3.7.2"
+flask-cors = "==3.0.7"
+flask-oidc = "==1.4.0"
 
 [requires]
-python_version = "3.7"
+python_version = "3.8"
