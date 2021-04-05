@@ -8,7 +8,6 @@ const client = axios.create({
 });
 
 class APIClient {
-  
   constructor(accessToken) {
     this.accessToken = accessToken;
   }
@@ -21,16 +20,8 @@ class APIClient {
     return this.perform('delete', `/kudos/${repo.id}`);
   }
 
-  updateKudo(repo) {
-    return this.perform('put', `/kudos/${repo.id}`, repo);
-  }
-
   getKudos() {
     return this.perform('get', '/kudos');
-  }
-
-  getKudo(repo) {
-    return this.perform('get', `/kudo/${repo.id}`);
   }
 
   async perform (method, resource, data) {

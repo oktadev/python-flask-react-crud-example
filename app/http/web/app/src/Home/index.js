@@ -4,7 +4,7 @@ import SwipeableViews from 'react-swipeable-views';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Grid from '@material-ui/core/Grid';
-import { withAuth } from '@okta/okta-react';
+import { withOktaAuth } from '@okta/okta-react';
 
 import GithubRepo from "../GithubRepo"
 import SearchBar from "../SearchBar"
@@ -18,7 +18,7 @@ const styles = theme => ({
     marginTop: 30
   },
   paper: {
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
     textAlign: 'center',
     color: theme.palette.text.secondary,
   },
@@ -31,12 +31,12 @@ class Home extends React.Component {
     kudos: []
   };
 
-  async componentDidMount() {
-    const accessToken = await this.props.auth.getAccessToken()
+  componentDidMount() {
+    const accessToken = this.props.authState.accessToken.accessToken;
     this.apiClient = new APIClient(accessToken);
-    this.apiClient.getKudos().then((data) => 
+    this.apiClient.getKudos().then((data) =>
       this.setState({...this.state, kudos: data})
-    ); 
+    );
   }
 
   handleTabChange = (event, value) => {
@@ -49,8 +49,7 @@ class Home extends React.Component {
 
   resetRepos = repos => this.setState({ ...this.state, repos })
 
-  isKudo = repo => this.state.kudos.find(r => r.id == repo.id)
-  
+  isKudo = repo => this.state.kudos.find(r => r.id === repo.id)
   onKudo = (repo) => {
     this.updateBackend(repo);
   }
@@ -63,6 +62,7 @@ class Home extends React.Component {
     }
     this.updateState(repo);
   }
+
   updateState = (repo) => {
     if (this.isKudo(repo)) {
       this.setState({
@@ -82,15 +82,14 @@ class Home extends React.Component {
     if (!target.value || target.length < 3) { return }
     if (event.which !== 13) { return }
 
-    githubClient
-      .getJSONRepos(target.value)
+    githubClient(target.value)
       .then((response) => {
         target.blur();
         this.setState({ ...this.state, value: 1 });
         this.resetRepos(response.items);
       })
   }
-  
+
   renderRepos = (repos) => {
     if (!repos) { return [] }
     return repos.map((repo) => {
@@ -105,27 +104,27 @@ class Home extends React.Component {
   render() {
     return (
       <div className={styles.root}>
-        <SearchBar auth={this.props.auth} onSearch={this.onSearch} />
-         <Tabs
+        <SearchBar onSearch={this.onSearch} />
+        <Tabs
           value={this.state.value}
           onChange={this.handleTabChange}
           indicatorColor="primary"
           textColor="primary"
-          fullWidth
+          variant="fullWidth"
         >
           <Tab label="Kudos" />
           <Tab label="Search" />
         </Tabs>
-        
+
         <SwipeableViews
           axis={'x-reverse'}
           index={this.state.value}
           onChangeIndex={this.handleTabChangeIndex}
         >
-          <Grid container spacing={16} style={{padding: '20px 0'}}>
+          <Grid container spacing={10} style={{padding: '20px 0'}}>
             { this.renderRepos(this.state.kudos) }
           </Grid>
-          <Grid container spacing={16} style={{padding: '20px 0'}}>
+          <Grid container spacing={10} style={{padding: '20px 0'}}>
             { this.renderRepos(this.state.repos) }
           </Grid>
         </SwipeableViews>
@@ -134,4 +133,4 @@ class Home extends React.Component {
   }
 }
 
-export default withStyles(styles)(withAuth(Home));
+export default withStyles(styles)(withOktaAuth(Home));

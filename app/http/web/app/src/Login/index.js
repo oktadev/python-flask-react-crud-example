@@ -1,33 +1,20 @@
 import React from 'react'
 import Button from '@material-ui/core/Button';
 import { Redirect } from 'react-router-dom'
-import { withAuth } from '@okta/okta-react';
+import { withOktaAuth } from '@okta/okta-react';
 
 class Login extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { authenticated: null };
-    this.checkAuthentication = this.checkAuthentication.bind(this);
     this.login = this.login.bind(this);
   }
 
-  async checkAuthentication() {
-    const authenticated = await this.props.auth.isAuthenticated();
-    if (authenticated !== this.state.authenticated) {
-      this.setState({ authenticated });
-    }
-  }
-
-  async componentDidMount() {
-    this.checkAuthentication()
-  }
-
-  async login(e) {
-    this.props.auth.login('/home');
+  async login() {
+    await this.props.oktaAuth.signInWithRedirect();
   }
 
   render() {
-    if (this.state.authenticated) {
+    if (this.props.authState.isAuthenticated) {
       return <Redirect to='/home' />
     } else {
       return (
@@ -39,4 +26,4 @@ class Login extends React.Component {
   }
 }
 
-export default withAuth(Login);
+export default withOktaAuth(Login);
