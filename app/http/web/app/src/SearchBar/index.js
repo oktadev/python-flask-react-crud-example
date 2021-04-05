@@ -77,7 +77,7 @@ class SearchBar extends React.Component {
 
   async logout(e) {
     e.preventDefault();
-    this.props.authService.logout('/');
+    await this.props.oktaAuth.signOut();
   }
 
   render() {

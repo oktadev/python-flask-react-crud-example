@@ -31,8 +31,8 @@ class Home extends React.Component {
     kudos: []
   };
 
-  async componentDidMount() {
-    const accessToken = await this.props.authService.getAccessToken()
+  componentDidMount() {
+    const accessToken = this.props.authState.accessToken.accessToken;
     this.apiClient = new APIClient(accessToken);
     this.apiClient.getKudos().then((data) =>
       this.setState({...this.state, kudos: data})
@@ -50,8 +50,8 @@ class Home extends React.Component {
   resetRepos = repos => this.setState({ ...this.state, repos })
 
   isKudo = repo => this.state.kudos.find(r => r.id === repo.id)
-    onKudo = (repo) => {
-      this.updateBackend(repo);
+  onKudo = (repo) => {
+    this.updateBackend(repo);
   }
 
   updateBackend = (repo) => {
